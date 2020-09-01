@@ -24,9 +24,11 @@ public class ChatClient{
 	public ChatClient(String userName, String address, int port) {
 		
 		this.userName = userName;
+		window = new ConversationFrame(userName);
 		
 		try{
 			System.out.print("Opening client " + userName + " socket..");
+			window.addMessage("#Connecting with server...");
 			clientSocket = new Socket(address, port);
 			System.out.println(" Socket successfully opened.\n");
 		}catch(IOException ex) {
@@ -36,13 +38,14 @@ public class ChatClient{
 		out = null;
 		in = null;
 		try {
+			window.addMessage("# Opening streams...");
 			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			out = new PrintWriter(clientSocket.getOutputStream(), true);
 		}catch(IOException ex) {
 			ex.printStackTrace();
 		}
 		
-		window = new ConversationFrame();
+		window.addMessage("Connected!\n");
 	}
 	
 	public void update() {
@@ -75,7 +78,7 @@ public class ChatClient{
 	}
 	
 	private String formatMessage() {
-		String message = userName + ";" + window.getMessage() + "\n";
+		String message = userName + "> " + window.getMessage();
 		
 		return message;
 	}

@@ -28,8 +28,9 @@ public class ConversationFrame {
 	final String TITLE = "Chat - ";
 	final Dimension FRAME_DIMENSION = new Dimension(300, 500);
 	
-	public ConversationFrame() {
+	public ConversationFrame(String userName) {
 		frame = new JFrame();
+		frame.setTitle(TITLE + userName); 
 		frame.setPreferredSize(FRAME_DIMENSION);
 		frame.setLayout(new GridBagLayout());
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
