@@ -12,7 +12,6 @@ import chat_server.ChatServer;
 
 public class ChatClient{
 	
-	private boolean runClient = true;
 	private String userName = new String();
 	
 	private Socket clientSocket;
@@ -41,11 +40,12 @@ public class ChatClient{
 			window.addMessage("# Opening streams...");
 			in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 			out = new PrintWriter(clientSocket.getOutputStream(), true);
+			out.println(userName);
 		}catch(IOException ex) {
 			ex.printStackTrace();
 		}
 		
-		window.addMessage("Connected!\n");
+		window.addMessage("#Connected!\n");
 	}
 	
 	public void update() {
@@ -96,13 +96,14 @@ public class ChatClient{
 	 */
 	protected void close() {
 		try {
-			System.out.print("Closing " + userName + " socket...");
+			System.out.print("Closing " + userName + " socket...");	
 			in.close();
 			out.close();
 			clientSocket.close();
 			System.out.println("Socket closed.");
 			System.exit(0);
 		}catch(IOException ex) {
+			System.out.println("Error closing socket.");
 			ex.printStackTrace();
 		}
 	}

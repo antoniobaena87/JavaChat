@@ -37,7 +37,7 @@ public class ConversationFrame {
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				close = true;
+				disconnectedMessage(userName);
 			}
 		});
 		
@@ -99,5 +99,11 @@ public class ConversationFrame {
 	protected void addMessage(String message) {
 		historicArea.append(message + "\n");
 		System.out.println("Added: " + message);
+	}
+	
+	protected void disconnectedMessage(String userName) {
+		message = "0000001 disconnect command";
+		sendMessage = true;
+		close = true;
 	}
 }
